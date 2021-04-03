@@ -5,3 +5,4 @@ def matrix_shape(matrix):
      shape =[]
      for item in matrix:
         shape += [len(item)]
+     return shape
