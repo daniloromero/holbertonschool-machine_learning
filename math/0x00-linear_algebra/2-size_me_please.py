@@ -6,7 +6,7 @@ def len_matrix(matrix, shape):
     """recursion to get matrix lenght"""
     if isinstance(matrix, list):
         shape.append(len(matrix))
-        if (len(matrix) > 0)
+        if (len(matrix) > 0):
             return len_matrix(matrix[0], shape)
     else:
         return shape
