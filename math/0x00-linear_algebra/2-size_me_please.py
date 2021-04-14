@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
+import numpy as np
 
 def matrix_shape(matrix):
      """shape of a matrix"""
-     shape =[]
-     for item in matrix:
-        shape += [len(item)]
-     return shape
+     shape = np.shape(matrix)
+     return list(shape)
