@@ -16,3 +16,5 @@ def matrix_shape(matrix):
     shape = []
     if isinstance(matrix, list):
         return len_matrix(matrix, shape)
+    else:
+        return shape
