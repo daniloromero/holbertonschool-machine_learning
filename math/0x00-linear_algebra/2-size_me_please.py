@@ -11,6 +11,7 @@ def len_matrix(matrix, shape):
     else:
         return shape
 
+
 def matrix_shape(matrix):
     """shape of a matrix"""
     shape = []
