@@ -4,7 +4,7 @@
 
 def matrix_transpose(matrix):
     """ Returns the transpose of a 2D matrix """
-    transpose =[]
+    transpose = []
     if len(matrix) > 0:
         for i in range(len(matrix[0])):
             transpose.append([])

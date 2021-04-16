@@ -12,7 +12,7 @@ def len_matrix(matrix, shape):
         return shape
 
 def matrix_shape(matrix):
-     """shape of a matrix"""
-     shape = []
-     if isinstance(matrix, list):
-        return len_matrix(matrix, shape)
+    """shape of a matrix"""
+    shape = []
+    if isinstance(matrix, list):
+         return len_matrix(matrix, shape)
