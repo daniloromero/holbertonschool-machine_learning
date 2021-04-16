@@ -13,4 +13,4 @@ def mat_mul(mat1, mat2):
                 total += mat1[i][k] * mat2[k][j]
             new.append(total)
         mul_mat.append(new)
-    return(mul_mat)
+    return (mul_mat)
