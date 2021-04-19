@@ -4,7 +4,7 @@
 
 def poly_derivative(poly):
     """ calculates the derivative of a polynomial """
-    if isinstance(poly, list):
+    if isinstance(poly, list) or len(poly) == 0:
         derivative = []
         for i in range(len(poly)):
             derivative.append(poly[i] * i)
