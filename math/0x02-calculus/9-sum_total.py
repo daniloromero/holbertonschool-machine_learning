@@ -4,4 +4,7 @@
 
 def summation_i_squared(n):
     """ Module that does sigma addition with sqared step """
-    return sum(map(lambda i: i ** 2, range(n + 1)))
+    if isinstance(n, int)
+        return sum(map(lambda i: i ** 2, range(n + 1)))
+    else:
+        return None
