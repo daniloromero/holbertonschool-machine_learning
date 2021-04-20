@@ -40,6 +40,9 @@ class Poisson:
         Returns:
             PMF of k or 0 if k is out of range.
         """
+        if k < 0:
+            return 0
+        k = int(0)    
         top = (self.EULER ** -self.lambtha) * (self.lambtha ** k)
         bottom = self.factorial(k)
         return top / bottom
