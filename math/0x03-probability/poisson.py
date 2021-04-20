@@ -5,6 +5,8 @@
 class Poisson:
     """ Class that represents a poisson distribution """
 
+    EULER = 2.7182818285
+
     def __init__(self, data=None, lambtha=1.):
         """ class constructor for  poisson distribution
 
@@ -23,6 +25,14 @@ class Poisson:
                 raise ValueError('data must contain multiple values')
             self.lambtha = sum(data)/len(data)
 
+    def factorial(self, f):
+        """ Calculate the factorial for an integer f """
+        factorial = 1
+        if int(f) >= 1:
+            for i in range(1, int(f) + 1):
+                factorial = factorial * i
+            return factorial
+
     def pmf(self, k):
         """ Calculates the value of the PMF for a given number of successes
         Args:
@@ -30,3 +40,6 @@ class Poisson:
         Returns:
             PMF of k or 0 if k is out of range.
         """
+        top = (self.EULER ** -self.lambtha) * (self.lambtha ** k)
+        bottom = self.factorial(k)
+        return top / bottom
