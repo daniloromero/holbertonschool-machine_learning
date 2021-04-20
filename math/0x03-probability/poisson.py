@@ -42,7 +42,7 @@ class Poisson:
         """
         if k < 0:
             return 0
-        k = int(0)
+        k = int(k)
         top = (self.EULER ** -self.lambtha) * (self.lambtha ** k)
         bottom = self.factorial(k)
-        return top / bottom
+        return top/bottom
