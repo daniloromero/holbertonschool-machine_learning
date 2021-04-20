@@ -4,7 +4,7 @@
 
 class Poisson:
     """ Class that represents a poisson distribution """
-    
+
     def __init__(self, data=None, lambtha=1.):
         """ class constructor for  poisson distribution
 
@@ -12,7 +12,7 @@ class Poisson:
             data:  list of the data to be used to estimate the distribution
             lambtha: expected number of occurences in a given time frame
         """
-        if data == None:
+        if data is None:
             if lambtha <= 0:
                 raise ValueError('lambtha must be a positive value')
             self.lambtha = float(lambtha)
@@ -22,7 +22,6 @@ class Poisson:
             if len(data) < 2:
                 raise ValueError('data must contain multiple values')
             self.lambtha = sum(data)/len(data)
-    
 
     def pmf(self, k):
         """ Calculates the value of the PMF for a given number of successes
@@ -31,4 +30,3 @@ class Poisson:
         Returns:
             PMF of k or 0 if k is out of range.
         """
-        
