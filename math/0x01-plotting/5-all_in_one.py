@@ -61,7 +61,7 @@ ax4.set_xlabel('Time (years)', size='x-small')
 ax4.axis([0, 20000, 0, 1])
 ax4.legend()
 
-ax5.hist(student_grades, bins=range(0, 110,10), edgecolor='black')
+ax5.hist(student_grades, bins=range(0, 110, 10), edgecolor='black')
 ax5.set_title('Project A', size='x-small')
 ax5.set_xlabel('Grades', size='x-small')
 ax5.set_ylabel('Number of students', size='x-small')
