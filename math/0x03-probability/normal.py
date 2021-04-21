@@ -5,12 +5,15 @@
 class Normal:
     """ Class  that represents a normal distribution """
 
+    EULER = 2.7182818285
+    PI = 3.1415926536
+
     def do_stddev(self, data, mean):
         """ calculates Standard deviation"""
         total = 0
         for item in data:
             total += (item - mean) ** 2
-        return total/len(data) ** (1/2)
+        return (total/len(data)) ** (1/2)
 
     def __init__(self, data=None, mean=0., stddev=1.):
         """ Class constructor """
@@ -35,3 +38,15 @@ class Normal:
     def x_value(self, z):
         """Calculates the x-value of a given z-score """
         return (z * self.stddev) + self.mean
+
+    def pdf(self, x):
+        """Calculates Probability Density Function (PDF)"""
+        top = self.EULER ** ((((x - self.mean)/self.stddev) ** 2))/-2
+        bottom = self.stddev * ((2 * self.PI) ** (1/2))
+        print(top)
+        print(bottom)
+        return top * bottom
+
+    def cdf(self, x):
+        """Calculates the value of the CDF for a given x-value"""
+
