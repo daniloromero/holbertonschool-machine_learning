@@ -49,4 +49,3 @@ class Normal:
 
     def cdf(self, x):
         """Calculates the value of the CDF for a given x-value"""
-
