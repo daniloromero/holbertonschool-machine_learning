@@ -47,3 +47,7 @@ class Normal:
 
     def cdf(self, x):
         """Calculates the value of the CDF for a given x-value"""
+        z = (x - self.mean) / (self.stddev * (2 ** (1 / 2)))
+        q = z - ((z ** 3)/3) + ((z ** 5)/10) - ((z ** 7)/42) + ((z ** 9)/216)
+        erf = (2/(self.PI ** (1/2))) * q
+        return (1 + erf) / 2
