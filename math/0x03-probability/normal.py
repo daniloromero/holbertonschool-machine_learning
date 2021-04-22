@@ -41,11 +41,9 @@ class Normal:
 
     def pdf(self, x):
         """Calculates Probability Density Function (PDF)"""
-        top = self.EULER ** ((((x - self.mean)/self.stddev) ** 2))/-2
-        bottom = self.stddev * ((2 * self.PI) ** (1/2))
-        print(top)
-        print(bottom)
-        return top * bottom
+        top = ((((x - self.mean)/self.stddev) ** 2))/-2
+        bottom = 1/(self.stddev * ((2 * self.PI) ** (1/2)))
+        return (self.EULER ** top) * bottom
 
     def cdf(self, x):
         """Calculates the value of the CDF for a given x-value"""
