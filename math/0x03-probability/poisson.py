@@ -32,6 +32,8 @@ class Poisson:
             for i in range(1, int(f) + 1):
                 factorial = factorial * i
             return factorial
+        else:
+            return 1
 
     def pmf(self, k):
         """ Calculates the value of the PMF for a given number of successes
@@ -46,3 +48,21 @@ class Poisson:
         top = (self.EULER ** -self.lambtha) * (self.lambtha ** k)
         bottom = self.factorial(k)
         return top/bottom
+
+    def cdf(self, k):
+        """ Calculates Cumulative Distribution Function (CDF)for a given number
+           of successes
+        Args:
+            k: number of successes
+        Returns:
+            CDF of k or 0 if k is out of range.
+        """
+        if k < 0:
+            return 0
+        k = int(k)
+
+        total = 0
+        for i in range(k + 1):
+            total += (self.lambtha ** i) / (self.factorial(i))
+        cdf = (self.EULER ** -self.lambtha) * total
+        return cdf
