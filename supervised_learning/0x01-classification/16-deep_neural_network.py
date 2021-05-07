@@ -8,9 +8,11 @@ class DeepNeuralNetwork:
 
     @staticmethod
     def Weights_init(nx, layers):
-        """ Het-at-alInitialization of Weigths"""
+        """ Het-at-al Initialization of Weigths"""
         weights_I = {}
         for l in range(1, len(layers)):
+            if type(layers[l]) is not int or layers[l] < 1:
+                raise TypeError('layers must be a list of positive integers')
             prev_layer = layers[l - 1] if l > 0 else nx
             weights_I['W' + str(l)] = np.random.randn(
                 layers[l], prev_layer) * np.sqrt(2/prev_layer)
