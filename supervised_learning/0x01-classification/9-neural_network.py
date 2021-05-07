@@ -31,7 +31,7 @@ class NeuralNetwork:
     @property
     def b1(self):
         """Bias 2 getter """
-        return self.__b2
+        return self.__b1
 
     @property
     def A1(self):
@@ -46,7 +46,7 @@ class NeuralNetwork:
     @property
     def b2(self):
         """Bias 1 getter """
-        return self.__b1
+        return self.__b2
 
     @property
     def A2(self):
