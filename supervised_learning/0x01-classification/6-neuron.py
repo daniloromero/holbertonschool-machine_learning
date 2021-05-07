@@ -58,7 +58,7 @@ class Neuron:
         self.__W = self.__W - np.multiply(dw, alpha)
         self.__b = self.__b - np.multiply(db, alpha)
         return self.__W, self.__b
-    
+
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """ method to Train the neuron """
         if type(iterations) is not int:
