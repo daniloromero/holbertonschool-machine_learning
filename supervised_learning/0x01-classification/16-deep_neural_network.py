@@ -15,9 +15,9 @@ class DeepNeuralNetwork:
                 raise TypeError('layers must be a list of positive integers')
             prev_layer = layers[l - 1] if l > 0 else nx
             weights_I.update({
-                'W' + str(l): np.random.randn(
+                'W' + str(l + 1): np.random.randn(
                     layers[l], prev_layer) * np.sqrt(2/prev_layer),
-                'b' + str(l): np.zeros((layers[l], 1))})
+                'b' + str(l + 1): np.zeros((layers[l], 1))})
         return weights_I
 
     def __init__(self, nx, layers):
