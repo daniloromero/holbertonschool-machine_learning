@@ -64,6 +64,5 @@ class DeepNeuralNetwork:
         """Calculates the cost of the model using logistic regression"""
         m = Y.shape[1]
         Y_product1 = np.multiply(Y, np.log(A))
-        Y_product2 = np.multiply((1 -Y), (np.log(1.0000001 - A)))
+        Y_product2 = np.multiply((1 - Y), (np.log(1.0000001 - A)))
         return -(1 / m) * (np.sum(Y_product1 + Y_product2))
-
