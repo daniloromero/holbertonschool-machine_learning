@@ -98,13 +98,13 @@ class DeepNeuralNetwork:
         """ Method that Trains the deep neural network """
         if type(iterations) is not int:
             raise TypeError('iterations must be an integer')
-        if iterations < 1:
+        if iterations <  0:
             raise ValueError('iterations must be a positive integer')
         if type(alpha) is not float:
             raise TypeError('alpha must be a float')
         if alpha < 0:
             raise ValueError('alpha must be positive')
-        for i in range(iterations + 1):
+        for i in range(iterations):
             _, cache = self.forward_prop(X)
             self.gradient_descent(Y, cache, alpha)
         return self.evaluate(X, Y)
