@@ -13,6 +13,9 @@ def one_hot_encode(Y, classes):
     """
     if type(classes) is not int or classes <= 0:
         return None
+    if type(Y) is not np.ndarray:
+        return None
+
     m = Y.shape[0]
     try:
         Z = np.zeros((classes, m))
