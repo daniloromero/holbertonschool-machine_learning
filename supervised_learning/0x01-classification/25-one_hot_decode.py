@@ -14,6 +14,8 @@ def one_hot_decode(one_hot):
     """
     if type(one_hot) is not np.ndarray or len(one_hot) == 0:
         return None
+    if np.any(one_hot >1):
+        return None
     _, m = one_hot.shape
     decoded = np.zeros(m, dtype=int)
     for index, array in enumerate(one_hot):
