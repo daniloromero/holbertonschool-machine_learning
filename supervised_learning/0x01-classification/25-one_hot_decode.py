@@ -12,7 +12,7 @@ def one_hot_decode(one_hot):
         Returns: a numpy.ndarray with shape (m, ) with numeric labels for
         each example, or None on failure
     """
-    if type(one_hot) is not np.ndarray:
+    if type(one_hot) is not np.ndarray or len(one_hot) == 0:
         return None
     _, m = one_hot.shape
     decoded = np.zeros(m, dtype=int)
