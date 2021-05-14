@@ -13,7 +13,7 @@ def one_hot_encode(Y, classes):
     """
     if type(classes) is not int or classes <= 0:
         return None
-    n = len(Y)
+    n = Y.shape[0]
     try:
         Z = np.zeros((classes, (n)))
         for i in range(len(Y)):
