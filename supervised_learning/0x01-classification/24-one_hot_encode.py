@@ -9,13 +9,13 @@ def one_hot_encode(Y, classes):
         Y: is a numpy.ndarray with shape (m,) containing numeric class labels
         m: is the number of examples
         classes: is the maximum number of classes found in Y
-    Returns: a one-hot encoding of Y with shape (classes, m), or None on failure
+    Returns: a one-hot encoding of Y with shape (classes, m) or None on failure
     """
     if type(classes) is not int or classes <= 0:
         return None
     n = len(Y)
     try:
-        Z = np.zeros((classes, (n + 1)))
+        Z = np.zeros((classes, (n)))
         for i in range(len(Y)):
             row = Y[i]
             Z[row][i] = 1
