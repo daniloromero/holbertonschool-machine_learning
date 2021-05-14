@@ -13,9 +13,9 @@ def one_hot_encode(Y, classes):
     """
     if type(classes) is not int or classes <= 0:
         return None
-    n = Y.shape[0]
+    m = Y.shape[0]
     try:
-        Z = np.zeros((classes, (n)))
+        Z = np.zeros((classes, m))
         for i in range(n):
             row = Y[i]
             Z[row][i] = 1
