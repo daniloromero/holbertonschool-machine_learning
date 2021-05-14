@@ -16,7 +16,7 @@ def one_hot_encode(Y, classes):
     m = Y.shape[0]
     try:
         Z = np.zeros((classes, m))
-        for i in range(n):
+        for i in range(m):
             row = Y[i]
             Z[row][i] = 1
         return Z
