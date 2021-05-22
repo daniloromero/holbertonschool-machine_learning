@@ -1,0 +1,14 @@
+l# Ignore Python cache files
+*__pycache__/
+
+# Ignore Numpy Compressed Files (NPZ)
+*.npz
+
+# Ignore PyCharm cache files
+*.idea
+
+# Ignore Pickle files
+*.pkl
+
+#  Ignore xml files
+*.xml
