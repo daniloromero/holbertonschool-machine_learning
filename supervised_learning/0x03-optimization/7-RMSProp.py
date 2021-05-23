@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Module that updates a variable using the RMSProp optimization algorithm"""
 import numpy as np
-import tensorflow as tf
 
 
 def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
