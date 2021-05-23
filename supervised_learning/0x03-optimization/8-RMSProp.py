@@ -12,7 +12,7 @@ def create_RMSProp_op(loss, alpha, beta2, epsilon):
         alpha is the learning rate
         beta2 is the RMSProp weight
         epsilon is a small number to avoid division by zero
-    Returns: the RMSProp optimization operation 
+    Returns: the RMSProp optimization operation
     """
     optimizer = tf.train.RMSPropOptimizer(alpha, decay=beta2, epsilon=epsilon)
     return optimizer.minimize(loss)
