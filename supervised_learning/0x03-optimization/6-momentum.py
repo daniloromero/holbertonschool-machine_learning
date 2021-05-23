@@ -17,4 +17,3 @@ def create_momentum_op(loss, alpha, beta1):
     grads_vars = optimizer.compute_gradients(loss)
     operation = optimizer.apply_gradients(grads_vars)
     return operation
-
