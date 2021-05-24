@@ -11,9 +11,9 @@ def sensitivity(confusion):
     Returns: numpy.ndarray shape (classes,) with the sensitivity of each class
     """
     classes, _ = confusion.shape
-    sensitivity = np.zeros(classes)
+    sensitivity = np.zeros(classes, dtype=float)
     for i, row in enumerate(confusion):
         total = np.sum(row)
         s = row[i]/total
-        np.append(sensitivity, s)
+        sensitivity[i] = s
     return sensitivity
