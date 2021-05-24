@@ -33,7 +33,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
         loss = tf.get_collection('loss')[0]
         train_op = tf.get_collection('train_op')[0]
 
-        for i in range(epochs + 1):
+        for i in range(epochs):
             print('After {} epochs:'.format(i))
             train_cost = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             train_acc = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
@@ -60,7 +60,7 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     print('\tStep {}:'.format(j // batch_size + 1))
                     print('\t\tCost: {}'.format(cost))
                     print('\t\tAccuracy: {}'.format(acc))
-        print('After {} epochs:'.format(i))
+        print('After {} epochs:'.format(epochs))
         train_cost = sess.run(loss, feed_dict={x: X_train, y: Y_train})
         train_acc = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
         print('\tTraining Cost: {}'.format(train_cost))
