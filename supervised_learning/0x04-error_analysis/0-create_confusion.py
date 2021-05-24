@@ -17,9 +17,7 @@ def create_confusion_matrix(labels, logits):
     """
     m, classes = labels.shape
     conf_mat = np.zeros((classes, classes))
-    print(m)
-    print(conf_mat[5][3])
-    print(len(logits))
+
     for i in range(m):
         m_label = labels[i]
         m_logit = logits[i]
