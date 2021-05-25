@@ -10,14 +10,13 @@ def specificity(confusion):
             classes is the number of classes
     Returns: numpy.ndarray of shape (classes,) with specificity of each class
     """
-    classes, _ = confusion.shape
-    specificity = np.zeros(classes, dtype=float)
+    true_pos = confusion.diagonal()
+    prediction_pos = np.sum(confusion, axis=0)
+    actual_pos = np.sum(confusion, axis=1)
+    false_neg = actual_pos - true_pos
+    false_pos = prediction_pos - true_pos
+    true_neg = np.sum(confusion) - false_pos - false_neg - true_pos
 
-    for i, row in enumerate(confusion):
-        false_pos = np.sum(confusion[i]) - row[i]
-        false_neg = np.sum(confusion[:, i]) - row[i]
-
-        sub_total = np.sum(confusion) - false_pos - false_neg - row[i]
-        specificity[i] = np.divide(sub_total,  (sub_total + false_pos))
+    specificity = np.divide(true_neg,  (true_neg + false_pos))
 
     return specificity
