@@ -14,9 +14,10 @@ def specificity(confusion):
     specificity = np.zeros(classes, dtype=float)
     true_neg = np.zeros(1, dtype=float)
     false_pos = np.zeros(classes, dtype=float)
+    diagonal = confusion.diagonal()
+    diagonal_sum = np.sum(diagonal)
     for i, row in enumerate(confusion):
-        true_neg += row[i]
+        true_neg = diagonal_sum - row[i]
         false_pos[i] = np.sum(confusion[:, i]) - row[i]
-    for i in range(len(false_pos)):
         specificity[i] = true_neg / (true_neg + false_pos[i])
     return specificity
