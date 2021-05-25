@@ -20,5 +20,3 @@ def specificity(confusion):
     for i in range(len(false_pos)):
         specificity[i] = true_neg / (true_neg + false_pos[i])
     return specificity
-
-
