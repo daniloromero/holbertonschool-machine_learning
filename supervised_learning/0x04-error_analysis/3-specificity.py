@@ -12,12 +12,12 @@ def specificity(confusion):
     """
     classes, _ = confusion.shape
     specificity = np.zeros(classes, dtype=float)
-    true_neg = np.zeros(1, dtype=float)
-    false_pos = np.zeros(classes, dtype=float)
-    diagonal = confusion.diagonal()
-    diagonal_sum = np.sum(diagonal)
+
     for i, row in enumerate(confusion):
-        true_neg = diagonal_sum - row[i]
-        false_pos[i] = np.sum(confusion[:, i]) - row[i]
-        specificity[i] = true_neg / (true_neg + false_pos[i])
+        false_pos = np.sum(confusion[i]) - row[i]
+        false_neg = np.sum(confusion[:, i]) - row[i]
+
+        sub_total = np.sum(confusion) - false_pos - false_neg - row[i]
+        specificity[i] = np.divide(sub_total,  (sub_total + false_pos))
+
     return specificity
