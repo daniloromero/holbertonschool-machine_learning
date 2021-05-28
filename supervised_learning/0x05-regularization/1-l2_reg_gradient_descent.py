@@ -20,8 +20,6 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
     dz_prev = []
     copy_weights = weights.copy()
     for n in range(L, 0, -1):
-        print(n)
-        print(len(cache))
         A = cache.get('A' + str(n))
         A_prev = cache.get('A' + str(n - 1))
         wx = copy_weights.get('W' + str(n + 1))
