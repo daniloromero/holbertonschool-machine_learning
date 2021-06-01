@@ -20,5 +20,6 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
             layer, input_shape=(nx,),
             activation=activation,
             kernel_regularizer=L2_reg))
-        model.add(K.layers.Dropout(rate=1 - keep_prob))
+        if i < len(layers) - 1:
+            model.add(K.layers.Dropout(rate=1 - keep_prob))
     return model
