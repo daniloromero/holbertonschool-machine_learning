@@ -44,13 +44,17 @@ def train_model(network, data, labels, batch_size, epochs,
             mode='min'
         )
         callback_list.append(save_model)
+
     def lr_scheduler(epoch):
         """Schedule learning rate """
         return alpha / (1 + decay_rate * epoch)
 
     if validation_data:
         if learning_rate_decay:
-            lr_decay = K.callbacks.LearningRateScheduler(lr_scheduler, verbose=1)
+            lr_decay = K.callbacks.LearningRateScheduler(
+                lr_scheduler,
+                verbose=1
+            )
             callback_list.append(lr_decay)
         if early_stopping:
             early_stop = K.callbacks.EarlyStopping(
