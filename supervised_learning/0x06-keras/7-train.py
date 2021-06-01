@@ -33,18 +33,21 @@ def train_model(network, data, labels, batch_size, epochs,
     Returns: the History object generated after training the model
     """
 
-    def lr_scheduler(epoch, alpha):
+    def lr_scheduler(epoch):
         """Schedule learning rate """
         return alpha / (1 + decay_rate * epoch)
     callback_list = []
-    if validation_data and learning_rate_decay:
-        lr_decay = K.callbacks.LearningRateScheduler(lr_scheduler, verbose=1)
-        callback_list.append(lr_decay)
-    if validation_data and early_stopping:
-        early_stop = K.callbacks.EarlyStopping(
-            monitor='val_loss',
-            patience=patience)
-        callback_list.append(early_stop)
+    if validation_data:
+        if learning_rate_decay:
+            lr_decay = K.callbacks.LearningRateScheduler(lr_scheduler, verbose=1)
+            callback_list.append(lr_decay)
+        if early_stopping:
+            early_stop = K.callbacks.EarlyStopping(
+                monitor='val_loss',
+                mode='min',
+                patience=patience
+            )
+            callback_list.append(early_stop)
     else:
         early_stop = None
     history = network.fit(
