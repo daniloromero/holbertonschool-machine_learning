@@ -13,7 +13,7 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
         keep_prob: is the probability that a node will be kept for dropout
     Returns: the keras model
     """
-    inputs = K.Input(shape=(1, nx))
+    inputs = K.Input(shape=(nx,))
     L2_reg = K.regularizers.l2(lambtha)
     for i, (layer, activation) in enumerate(zip(layers, activations)):
         x = K.layers.Dense(
