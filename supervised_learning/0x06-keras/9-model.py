@@ -12,6 +12,7 @@ def save_model(network, filename):
     """
     network.save(filename)
 
+
 def load_model(filename):
     """loads an entire model
     Args:
