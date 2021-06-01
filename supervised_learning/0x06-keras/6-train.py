@@ -5,7 +5,7 @@ import tensorflow.keras as K
 
 def train_model(network, data, labels, batch_size,
                 epochs, validation_data=None, early_stopping=False,
-                patience=0,verbose=True, shuffle=False):
+                patience=0, verbose=True, shuffle=False):
     """trains a model using mini-batch gradient descent
     Args:
         network: the model to train
@@ -36,8 +36,8 @@ def train_model(network, data, labels, batch_size,
         batch_size=batch_size,
         epochs=epochs,
         verbose=verbose,
-        shuffle=shuffle,
+        callbacks=early_stop,
         validation_data=validation_data,
-        callbacks=early_stop
+        shuffle=shuffle,
     )
     return history
