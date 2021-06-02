@@ -1,4 +1,4 @@
-#!/us/bin/env python3
+#!/usr/bin/env python3
 """Module that saves and loads a model’s configuration"""
 import tensorflow.keras as K
 
