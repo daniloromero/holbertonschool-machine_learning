@@ -1,4 +1,4 @@
-#!/#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Module that performs a same convolution on grayscale images"""
 import numpy as np
 
