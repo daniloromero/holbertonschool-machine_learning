@@ -21,7 +21,6 @@ def convolve_grayscale_valid(images, kernel):
     output_width = input_w - kernel_w + 1
     output = np.zeros((m, output_width, output_height))
     img_size = np.arange(m)
-    print(img_size)
     for i in range(output_width):
         for j in range(output_height):
             window = images[img_size, i:kernel_h+i, j:kernel_w+j]
