@@ -37,7 +37,8 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     h_pad = int(((input_w + 2 * ph - kernel_w) / sh) + 1)
     w_pad = int(((input_h + 2 * pw - kernel_h) / sw) + 1)
 
-    input_padded = np.pad(images, ((0, 0), (ph, ph), (pw, pw), (0, 0)), 'constant')
+    input_padded = np.pad(images, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
+                          'constant')
 
     output = np.zeros((m, h_pad, w_pad))
     img_size = np.arange(m)
