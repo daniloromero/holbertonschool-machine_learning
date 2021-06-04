@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/#!/usr/bin/env python3
 """Module that performs a same convolution on grayscale images"""
 import numpy as np
 
@@ -34,6 +34,6 @@ def convolve_grayscale_same(images, kernel):
     img_size = np.arange(m)
     for i in range(input_w):
         for j in range(input_h):
-            window = input_padded[img_size, i:kernel_h+i, j:kernel_w+j]
+            window = input_padded[img_size, i:kernel_w+i, j:kernel_h+j]
             output[img_size, i, j] = np.sum(window * kernel, axis=(1, 2))
     return output
