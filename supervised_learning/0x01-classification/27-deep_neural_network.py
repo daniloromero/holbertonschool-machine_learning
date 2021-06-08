@@ -126,12 +126,13 @@ class DeepNeuralNetwork:
             self.gradient_descent(Y, cache, alpha)
         cost_list = cost_dict.items()
         cost_list = sorted(cost_list)
-        x, y = zip(*cost_list)
-        plt.plot(x, y)
-        plt.xlabel('iteration')
-        plt.ylabel('cost')
-        plt.title('Training Cost')
-        plt.show()
+        if graph:
+            x, y = zip(*cost_list)
+            plt.plot(x, y)
+            plt.xlabel('iteration')
+            plt.ylabel('cost')
+            plt.title('Training Cost')
+            plt.show()
         return self.evaluate(X, Y)
 
     def save(self, filename):
