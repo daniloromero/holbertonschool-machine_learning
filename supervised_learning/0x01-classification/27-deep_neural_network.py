@@ -53,18 +53,18 @@ class DeepNeuralNetwork:
         """Calculates the forward propagation of the neural network"""
         m = X.shape[1]
         self.__cache.update({'A0': X})
-        for l in range(self.__L):
-            A = self.__cache.get('A' + str(l))
-            Weight = self.__weights.get('W' + str(l + 1))
-            Bias = self.__weights.get('b' + str(l + 1))
+        for i in range(self.__L):
+            A = self.__cache.get('A' + str(i))
+            Weight = self.__weights.get('W' + str(i + 1))
+            Bias = self.__weights.get('b' + str(i + 1))
             Z = np.matmul(Weight, A) + Bias
-            if l == self.__L - 1:
+            if i == self.__L - 1:
                 # Output layer with soft,ax activation function
                 output_A = np.exp(Z) / np.sum(np.exp(Z), axis=0, keepdims=True)
             else:
                 output_A = 1/(1 + np.exp(-Z))
-            self.__cache.update({'A' + str(l + 1): output_A})
-        return self.__cache.get('A' + str(l + 1)), self.__cache
+            self.__cache.update({'A' + str(i + 1): output_A})
+        return self.__cache.get('A' + str(i + 1)), self.__cache
 
     def cost(self, Y, A):
         """Calculates the cost of the model using logistic regression"""
