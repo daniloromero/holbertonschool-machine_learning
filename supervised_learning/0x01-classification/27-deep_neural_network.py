@@ -58,7 +58,11 @@ class DeepNeuralNetwork:
             Weight = self.__weights.get('W' + str(l + 1))
             Bias = self.__weights.get('b' + str(l + 1))
             Z = np.matmul(Weight, A) + Bias
-            output_A = 1/(1 + np.exp(-Z))
+            if l == self.__L - 1:
+                # Output layer with soft,ax activation function
+                output_A = np.exp(Z) / np.sum(np.exp(Z), axis=0, keepdims=True)
+            else:
+                output_A = 1/(1 + np.exp(-Z))
             self.__cache.update({'A' + str(l + 1): output_A})
         return self.__cache.get('A' + str(l + 1)), self.__cache
 
