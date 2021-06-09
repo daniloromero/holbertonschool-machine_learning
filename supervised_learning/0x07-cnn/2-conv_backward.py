@@ -49,7 +49,11 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     dW = np.zeros(W.shape)
     db = np.zeros(b.shape)
     size = np.arange(m)
-
+    db = np.sum(
+        dZ,
+        axis=(0, 1, 2),
+        keepdims=True
+    )
     for i in range(m):
         for h in range(h_new):
             for w in range(w_new):
@@ -62,4 +66,4 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                                                    s_w:kw+s_w, :] * box
     if padding == 'same':
         dA_prev = dA_prev[:, ph: -ph, pw:-pw, :]
-    return dA_prev, dW
+    return dA_prev, dW, db
