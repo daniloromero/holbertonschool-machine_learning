@@ -11,7 +11,7 @@ def lenet5(x, y):
         y is a tf.placeholder of shape (m, 10) with the one-hot labels
     Return:
         a tensor for the softmax activated output
-        a training operation that utilizes Adam optimization (with default hyperparameters)
+        a training operation uses Adam optimization (default hyperparameters)
         a tensor for the loss of the network
         a tensor for the accuracy of the network
     """
@@ -19,7 +19,7 @@ def lenet5(x, y):
     activation = tf.nn.relu
     conv_l1 = tf.layers.Conv2D(
         filters=6,
-        kernel_size=(5,5),
+        kernel_size=(5, 5),
         padding='same',
         activation=activation,
         kernel_initializer=init
@@ -35,7 +35,7 @@ def lenet5(x, y):
         kernel_size=(5, 5),
         padding='valid',
         activation=activation,
-        kernel_initializer=init
+        kernel_initializer=init}
     )(max_pool1)
 
     max_pool2 = tf.layers.MaxPooling2D(
