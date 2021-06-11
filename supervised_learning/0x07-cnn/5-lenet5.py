@@ -10,7 +10,6 @@ def lenet5(X):
             m is the number of images
     Return: a K.Model compiled to use Adam optimization and accuracy metrics
     """
-    i_shape = X.shape
     init = K.initializers.he_normal(seed=None)
     model = K.Sequential()
     model.add(K.layers.Conv2D(
@@ -18,7 +17,7 @@ def lenet5(X):
         kernel_size=(5, 5),
         padding='same',
         activation='relu',
-        input_shape=i_shape[1:],
+        input_shape=(28, 28, 1),
         kernel_initializer=init,
     ))
 
