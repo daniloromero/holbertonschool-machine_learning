@@ -58,6 +58,7 @@ def lenet5(X):
     model.add(K.layers.Dense(
         units=10,
         activation='softmax',
+        kernel_initializer=init,
     ))
 
     opt = K.optimizers.Adam()
