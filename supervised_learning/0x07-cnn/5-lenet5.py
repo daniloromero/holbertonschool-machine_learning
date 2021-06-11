@@ -59,10 +59,8 @@ def lenet5(X):
         kernel_initializer=init,
     ))
 
-    opt = K.optimizers.Adam()
-
     model.compile(
-        optimizer=opt,
+        optimizer='adam',
         loss='categorical_crossentropy',
         metrics=['accuracy']
     )
