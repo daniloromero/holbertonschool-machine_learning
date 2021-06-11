@@ -11,54 +11,54 @@ def lenet5(X):
     Return: a K.Model compiled to use Adam optimization and accuracy metrics
     """
     init = K.initializers.he_normal(seed=None)
-    model = K.Sequential()
-    model.add(K.layers.Conv2D(
+    conv_l1 = K.layers.Conv2D(
         filters=6,
         kernel_size=(5, 5),
         padding='same',
         activation='relu',
         input_shape=(28, 28, 1),
         kernel_initializer=init,
-    ))
+    )(X)
 
-    model.add(K.layers.MaxPooling2D(
+    max_pool1 = K.layers.MaxPooling2D(
         pool_size=(2, 2),
         strides=(2, 2)
-    ))
+    )(conv_l1)
 
-    model.add(K.layers.Conv2D(
+    conv_l2 = K.layers.Conv2D(
         filters=16,
         kernel_size=(5, 5),
         padding='valid',
         activation='relu',
         kernel_initializer=init,
-    ))
+    )(max_pool1)
 
-    model.add(K.layers.MaxPooling2D(
+    max_pool2 = K.layers.MaxPooling2D(
         pool_size=(2, 2),
         strides=(2, 2)
-    ))
+    )(conv_l2)
 
-    model.add(K.layers.Flatten())
+    flatten = K.layers.Flatten()(max_pool2)
 
-    model.add(K.layers.Dense(
+    fc_l1 = K.layers.Dense(
         units=120,
         activation='relu',
         kernel_initializer=init,
-    ))
+    )(flatten)
 
-    model.add(K.layers.Dense(
+    fc_l2 = K.layers.Dense(
         units=84,
         activation='relu',
         kernel_initializer=init,
-    ))
+    )(fc_l1)
 
-    model.add(K.layers.Dense(
+    output = K.layers.Dense(
         units=10,
         activation='softmax',
         kernel_initializer=init,
-    ))
+    )(fc_l2)
 
+    model = K.Model(inputs=X, outputs=output)
     model.compile(
         optimizer='adam',
         loss='categorical_crossentropy',
