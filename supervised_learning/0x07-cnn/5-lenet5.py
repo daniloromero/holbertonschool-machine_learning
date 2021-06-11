@@ -11,7 +11,6 @@ def lenet5(X):
     Return: a K.Model compiled to use Adam optimization and accuracy metrics
     """
     i_shape = X.shape
-    print(i_shape)
     init = K.initializers.he_normal(seed=None)
     model = K.Sequential()
     model.add(K.layers.Conv2D(
@@ -23,7 +22,7 @@ def lenet5(X):
         kernel_initializer=init,
     ))
 
-    model.add(K.layers.MaxPool2D(
+    model.add(K.layers.MaxPooling2D(
         pool_size=(2, 2),
         strides=(2, 2)
     ))
@@ -36,7 +35,7 @@ def lenet5(X):
         kernel_initializer=init,
     ))
 
-    model.add(K.layers.MaxPool2D(
+    model.add(K.layers.MaxPooling2D(
         pool_size=(2, 2),
         strides=(2, 2)
     ))
