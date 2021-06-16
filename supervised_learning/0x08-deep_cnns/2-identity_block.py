@@ -19,7 +19,6 @@ def identity_block(A_prev, filters):
         filters=F11,
         kernel_size=1,
         padding='same',
-        activation='relu',
         kernel_initializer=init
     )(A_prev)
 
@@ -31,7 +30,6 @@ def identity_block(A_prev, filters):
         filters=F3,
         kernel_size=3,
         padding='same',
-        activation='relu',
         kernel_initializer=init
     )(activation_1)
 
@@ -43,7 +41,6 @@ def identity_block(A_prev, filters):
         filters=F12,
         kernel_size=1,
         padding='same',
-        activation='relu',
         kernel_initializer=init
     )(activation_2)
 
