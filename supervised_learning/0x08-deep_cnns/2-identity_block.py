@@ -23,7 +23,7 @@ def identity_block(A_prev, filters):
         kernel_initializer=init
     )(A_prev)
 
-    batch_norm1 = K.layers.BatchNormalization()(conv_1)
+    batch_norm1 = K.layers.BatchNormalization(axis=3)(conv_1)
 
     activation_1 = K.layers.Activation('relu')(batch_norm1)
 
@@ -35,7 +35,7 @@ def identity_block(A_prev, filters):
         kernel_initializer=init
     )(activation_1)
 
-    batch_norm2 = K.layers.BatchNormalization()(conv_2)
+    batch_norm2 = K.layers.BatchNormalization(axis=3)(conv_2)
 
     activation_2 = K.layers.Activation('relu')(batch_norm2)
 
