@@ -58,9 +58,9 @@ def resnet50():
 
     pro_block4 = projection_block(id_block10, [512, 512, 2048])
 
-    id_block11 = projection_block(pro_block4, [512, 512, 2048])
+    id_block11 = identity_block(pro_block4, [512, 512, 2048])
 
-    id_block12 = projection_block(id_block11, [512, 512, 2048])
+    id_block12 = identity_block(id_block11, [512, 512, 2048])
 
     l_avg_pool = K.layers.AveragePooling2D(pool_size=[1, 1],
                                            strides=7,
