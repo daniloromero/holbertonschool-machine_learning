@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Module  that builds a transition layer"""
-import numpy as np
 import tensorflow.keras as K
 
 
