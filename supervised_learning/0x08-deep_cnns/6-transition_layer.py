@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Module  that builds a transition layer"""
+import numpy as np
 import tensorflow.keras as K
 
 
@@ -12,7 +13,7 @@ def transition_layer(X, nb_filters, compression):
     Return: The output of the transition layer and the number of filters
     """
     init = K.initializers.he_normal(seed=None)
-    nb_filters = int(nb_filters * compression)
+    nb_filters = np.floor(nb_filters * compression).astype(np.int)
     batch_norm = K.layers.BatchNormalization(axis=3)(X)
 
     activation = K.layers.Activation('relu')(batch_norm)
@@ -21,11 +22,11 @@ def transition_layer(X, nb_filters, compression):
         filters=nb_filters,
         kernel_size=1,
         padding='same',
-        strides=2,
+        strides=1,
         kernel_initializer=init
     )(activation)
-    l_avg_pool = K.layers.AveragePooling2D(pool_size=[7, 7],
-                                           strides=1,
+    l_avg_pool = K.layers.AveragePooling2D(pool_size=[2,2],
+                                           strides=2,
                                            padding='same')(conv1)
 
     return l_avg_pool, nb_filters
