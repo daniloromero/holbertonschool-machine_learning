@@ -62,7 +62,7 @@ def resnet50():
 
     id_block12 = identity_block(id_block11, [512, 512, 2048])
 
-    l_avg_pool = K.layers.AveragePooling2D(pool_size=[1, 1],
+    l_avg_pool = K.layers.AveragePooling2D(pool_size=[7, 7],
                                            strides=7,
                                            padding='same')(id_block12)
 
