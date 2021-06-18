@@ -22,7 +22,7 @@ class DeepNeuralNetwork:
                 'b' + str(l + 1): np.zeros((layers[l], 1))})
         return weights_I
 
-    def __init__(self, nx, layers):
+    def __init__(self, nx, layers, activation='sig'):
         """ Class constructor"""
         if type(nx) is not int:
             raise TypeError('nx must be an integer')
@@ -30,9 +30,12 @@ class DeepNeuralNetwork:
             raise ValueError('nx must be a positive integer')
         if type(layers) is not list or len(layers) == 0:
             raise TypeError('layers must be a list of positive integers')
+        if activation not in ('sig', 'tanh'):
+            raise ValueError("activation must be 'sig' or 'tanh'")
         self.__L = len(layers)
         self.__cache = {}
         self.__weights = self.Weights_init(nx, layers)
+        self.__activation = activation
 
     @property
     def L(self):
@@ -49,6 +52,11 @@ class DeepNeuralNetwork:
         """ weights getter """
         return self.__weights
 
+    @property
+    def activation(self):
+        """  getter method """
+        return self.__activation
+
     def forward_prop(self, X):
         """Calculates the forward propagation of the neural network"""
         m = X.shape[1]
@@ -62,7 +70,10 @@ class DeepNeuralNetwork:
                 # Output layer with soft,ax activation function
                 output_A = np.exp(Z) / np.sum(np.exp(Z), axis=0, keepdims=True)
             else:
-                output_A = 1/(1 + np.exp(-Z))
+                if self.__activation == 'sig':
+                    output_A = 1/(1 + np.exp(-Z))
+                elif self.__activation == 'tanh':
+                    output_A = np.tanh(Z)
             self.__cache.update({'A' + str(i + 1): output_A})
         return self.__cache.get('A' + str(i + 1)), self.__cache
 
