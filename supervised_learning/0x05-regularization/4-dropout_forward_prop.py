@@ -21,13 +21,15 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         Weight = weights.get('W' + str(l + 1))
         Bias = weights.get('b' + str(l + 1))
         Z = np.matmul(Weight, A) + Bias
+        drop = np.random.binomial(1, keep_prob, size=Z.shape)
+        # drop = np.where(drop < keep_prob, 1, 0)
         if l < L - 1:
-            A_next = (2/(1 + np.exp(-2 * Z)))
-            drop = np.random.rand(A_next.shape[0], A_next.shape[1]) < keep_prob
+            A_next = np.tanh(Z)
             A_next = np.multiply(A_next, drop)
             cache['A' + str(l + 1)] = A_next / keep_prob
-            cache['D' + str(l + 1)] = drop * 1
+            cache['D' + str(l + 1)] = drop
         else:
             softmax = np.exp(Z)
-            cache['A' + str(l + 1)] = softmax / np.sum(softmax)
-        return cache
+            cache['A' + str(l + 1)] = softmax / np.sum(softmax,
+                                                       axis=0, keepdims=True)
+    return cache
