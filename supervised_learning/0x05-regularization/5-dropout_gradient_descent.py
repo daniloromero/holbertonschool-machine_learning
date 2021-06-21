@@ -16,19 +16,23 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
         L: is the number of layers of the network
     """
     m = Y.shape[1]
-    cache = {'A0': Y}
-    for l in range(L):
-        A = cache.get('A' + str(l))
-        Weight = weights.get('W' + str(l + 1))
-        Bias = weights.get('b' + str(l + 1))
-        Z = np.matmul(Weight, A.T) + Bias
-        if l < L - 1:
-            A_next = (2/(1 + np.exp(-2 * Z)))
-            drop = np.random.rand(A_next.shape[0], A_next.shape[1]) < keep_prob
-            A_next = np.multiply(A_next, drop)
-            cache['A' + str(l + 1)] = A_next / keep_prob
-            cache['D' + str(l + 1)] = drop * 1
+    dz_prev = []
+    copy_weights = weights.copy()
+    for n in range(L, 0, -1):
+        A = cache.get('A' + str(n))
+        A_prev = cache.get('A' + str(n - 1))
+        wx = copy_weights.get('W' + str(n + 1))
+        bx = copy_weights.get('b' + str(n))
+        if n == L:
+            dz = A - Y
         else:
-            softmax = np.exp(Z)
-            cache['A' + str(l + 1)] = softmax / np.sum(softmax)
-        return cache
+            dz = np.matmul(wx.T, dz_prev) * (1 - (A * A))
+            dz *= cache['D{}'.format(n)]
+            dz /= keep_prob
+        dw = np.matmul(dz, A_prev.T) / m
+        db = np.sum(dz, axis=1, keepdims=True) / m
+        dz_prev = dz
+        w = copy_weights.get('W' + str(n))
+        weights['W' + str(n)] = w - (dw * alpha)
+        weights['b' + str(n)] = bx - (db * alpha)
+        dz_prev = dz

@@ -22,7 +22,6 @@ def dropout_forward_prop(X, weights, L, keep_prob):
         Bias = weights.get('b' + str(l + 1))
         Z = np.matmul(Weight, A) + Bias
         drop = np.random.binomial(1, keep_prob, size=Z.shape)
-        # drop = np.where(drop < keep_prob, 1, 0)
         if l < L - 1:
             A_next = np.tanh(Z)
             A_next = np.multiply(A_next, drop)
