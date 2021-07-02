@@ -21,11 +21,11 @@ class Yolo:
                 2 => [anchor_box_width, anchor_box_height]
         """
         class_names = []
+        with open(classes_path, 'r') as f:
+            for line in f:
+                class_names.append(line.strip())
         self.model = K.models.load_model(model_path)
         self.class_names = class_names
         self.class_t = class_t
         self.nms_t = nms_t
         self.anchors = anchors
-        with open(classes_path, 'r') as f:
-            for line in f:
-                class_names.append(line.strip())
