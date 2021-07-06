@@ -11,7 +11,7 @@ class NST:
         - Content layer where will pull our feature maps
         - Style layer we are interested in
     """
-    style_layers = ['block1_conv1','block2_conv1', 'block3_conv1',
+    style_layers = ['block1_conv1', 'block2_conv1', 'block3_conv1',
                     'block4_conv1', 'block5_conv1']
     content_layer = 'block5_conv2'
 
@@ -76,5 +76,5 @@ class NST:
 
         image = tf.expand_dims(image, axis=0)
         image = tf.image.resize_bicubic(image, size=(512, 512))
-        
+
         return image
