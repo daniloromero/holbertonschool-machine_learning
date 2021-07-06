@@ -76,5 +76,6 @@ class NST:
 
         image = tf.expand_dims(image, axis=0)
         image = tf.image.resize_bicubic(image, size=(512, 512))
-
+        image /= 255
+        image = tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
         return image
