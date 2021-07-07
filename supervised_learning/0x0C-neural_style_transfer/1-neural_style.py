@@ -13,7 +13,7 @@ class NST:
     """
     style_layers = ['block1_conv1', 'block2_conv1', 'block3_conv1',
                     'block4_conv1', 'block5_conv1']
-    content_layer = 'block5_conv2'
+    content_layer = ['block5_conv2']
 
     def __init__(self, style_image, content_image, alpha=1e4, beta=1):
         """ Class constructor
@@ -56,6 +56,7 @@ class NST:
         self.content_image = self.scale_image(content_image)
         self.alpha = alpha
         self.beta = beta
+        self.model = self.load_model()
 
     @staticmethod
     def scale_image(image):
@@ -80,3 +81,12 @@ class NST:
         image /= 255
         image = tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
         return image
+
+    def load_model(self):
+        """Loads model  VGG19 Keras as base"""
+        vgg_base = tf.keras.applications.vgg19.VGG19(include_top=False,
+                                                weights='imagenet')
+        layer_names = self.style_layers + self.content_layer
+        outputs = [vgg_base.get_layer(name).output for name in layer_names]
+        model = tf.keras.models.Model(vgg_base.input, outputs)
+        return model
