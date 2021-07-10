@@ -91,6 +91,7 @@ class NST:
         """Loads model VGG19 Keras as base"""
         vgg_base = tf.keras.applications.vgg19.VGG19(include_top=False,
                                                      weights='imagenet')
+        x = vgg_base.input
         vgg_base.trainable = False
         layer_names = self.style_layers + self.content_layer
         outputs = [vgg_base.get_layer(name).output for name in layer_names]
