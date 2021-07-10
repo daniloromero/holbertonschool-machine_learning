@@ -75,15 +75,20 @@ class NST:
         if image.shape[2] != 3:
             raise TypeError(img_error)
 
+        h, w, _ = image.shape
+        max_dim = 512
+        maximum = max(h, w)
+        scale = max_dim / maximum
+        new_shape = (int(h * scale), int(w * scale))
         image = tf.expand_dims(image, axis=0)
-        image = tf.image.resize_bicubic(image, size=(512, 512))
+        image = tf.image.resize_bicubic(image, new_shape)
         image = tf.cast(image, tf.float32)
         image /= 255
         image = tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
         return image
 
     def load_model(self):
-        """Loads model  VGG19 Keras as base"""
+        """Loads model VGG19 Keras as base"""
         vgg_base = tf.keras.applications.vgg19.VGG19(include_top=False,
                                                      weights='imagenet')
         vgg_base.trainable = False
