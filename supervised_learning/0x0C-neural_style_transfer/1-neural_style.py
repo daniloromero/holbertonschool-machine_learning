@@ -56,7 +56,7 @@ class NST:
         self.content_image = self.scale_image(content_image)
         self.alpha = alpha
         self.beta = beta
-        self.model = self.load_model()
+        self.load_model()
 
     @staticmethod
     def scale_image(image):
@@ -92,8 +92,22 @@ class NST:
         vgg_base = tf.keras.applications.vgg19.VGG19(include_top=False,
                                                      weights='imagenet')
         x = vgg_base.input
-        vgg_base.trainable = False
+        outputs = []
         layer_names = self.style_layers + self.content_layer
-        outputs = [vgg_base.get_layer(name).output for name in layer_names]
+        for layer in vgg_base.layers[1:]:
+            if isinstance(layer, tf.keras.layers.MaxPooling2D):
+                layer = tf.keras.layers.AveragePooling2D(
+                    pool_size=layer.pool_size,
+                    strides=layer.strides,
+                    padding=layer.padding,
+                    name=layer.name
+                )
+                x = layer(x)
+            else:
+                x = layer(x)
+                if layer.name in layer_names:
+                    outputs.append(x)
+                layer.trainable = False
+
         model = tf.keras.models.Model(vgg_base.input, outputs)
-        return model
+        self.model = model
