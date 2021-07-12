@@ -136,8 +136,9 @@ class NST:
                                             self.style_image * 255)
         prepro_content = tf.keras.applications.vgg19.preprocess_input(
                                             self.content_image * 255)
-        style_features = self.model(prepro_style)[:-1]
-        content_feature = self.model(prepro_content)[-1][0]
-        self.gram_style_features = [self.gram_matrix(out)
-                                    for out in style_features]
+        len_st_layers = len(self.style_layers)
+        style_features = self.model(prepro_style)[:len_st_layers]
+        content_feature = self.model(prepro_content)[len_st_layers:][0]
+        self.gram_style_features = [self.gram_matrix(output)
+                                    for output in style_features]
         self.content_feature = content_feature
