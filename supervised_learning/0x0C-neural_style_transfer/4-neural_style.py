@@ -138,10 +138,9 @@ class NST:
                                             self.content_image * 255)
         len_st_layers = len(self.style_layers)
         style_features = self.model(prepro_style)[:len_st_layers]
-        content_feature = self.model(prepro_content)[len_st_layers:][0]
+        self.content_feature = self.model(prepro_content)[len_st_layers:][0]
         self.gram_style_features = [self.gram_matrix(output)
                                     for output in style_features]
-        self.content_feature = content_feature
 
     def layer_style_cost(self, style_output, gram_target):
         """Calculates the style cost for a single layer"""
