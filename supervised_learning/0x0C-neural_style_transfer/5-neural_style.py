@@ -56,7 +56,8 @@ class NST:
         self.content_image = self.scale_image(content_image)
         self.alpha = alpha
         self.beta = beta
-        self.model = self.load_model()
+        self.load_model()
+        self.generate_features()
 
     @staticmethod
     def scale_image(image):
@@ -75,22 +76,42 @@ class NST:
         if image.shape[2] != 3:
             raise TypeError(img_error)
 
+        h, w, _ = image.shape
+        max_dim = 512
+        maximum = max(h, w)
+        scale = max_dim / maximum
+        new_shape = (int(h * scale), int(w * scale))
         image = tf.expand_dims(image, axis=0)
-        image = tf.image.resize_bicubic(image, size=(512, 512))
+        image = tf.image.resize_bicubic(image, new_shape)
         image = tf.cast(image, tf.float32)
         image /= 255
         image = tf.clip_by_value(image, clip_value_min=0, clip_value_max=1)
         return image
 
     def load_model(self):
-        """Loads model  VGG19 Keras as base"""
+        """Loads model VGG19 Keras as base"""
         vgg_base = tf.keras.applications.VGG19(include_top=False,
                                                weights='imagenet')
-        vgg_base.trainable = False
+        x = vgg_base.input
+        outputs = []
         layer_names = self.style_layers + self.content_layer
-        outputs = [vgg_base.get_layer(name).output for name in layer_names]
+        for layer in vgg_base.layers[1:]:
+            if isinstance(layer, tf.keras.layers.MaxPooling2D):
+                layer = tf.keras.layers.AveragePooling2D(
+                    pool_size=layer.pool_size,
+                    strides=layer.strides,
+                    padding=layer.padding,
+                    name=layer.name
+                )
+                x = layer(x)
+            else:
+                x = layer(x)
+                if layer.name in layer_names:
+                    outputs.append(x)
+                layer.trainable = False
+
         model = tf.keras.models.Model(vgg_base.input, outputs)
-        return model
+        self.model = model
 
     @staticmethod
     def gram_matrix(input_layer):
@@ -108,3 +129,48 @@ class NST:
         input_shape = tf.shape(input_layer)
         num_locations = tf.cast(input_shape[1]*input_shape[2], tf.float32)
         return result/(num_locations)
+
+    def generate_features(self):
+        """extracts the features used to calculate neural style cost"""
+        prepro_style = tf.keras.applications.vgg19.preprocess_input(
+                                            self.style_image * 255)
+        prepro_content = tf.keras.applications.vgg19.preprocess_input(
+                                            self.content_image * 255)
+        style_features = self.model(prepro_style)[:-1]
+        content_feature = self.model(prepro_content)[-1]
+        self.gram_style_features = [self.gram_matrix(output)
+                                    for output in style_features]
+        self.content_feature = content_feature
+
+    def layer_style_cost(self, style_output, gram_target):
+        """Calculates the style cost for a single layer"""
+        if not isinstance(style_output, (tf.Tensor, tf.Variable)):
+            raise TypeError('input_layer must be a tensor of rank 4')
+        if len(style_output.shape) != 4:
+            raise TypeError('input_layer must be a tensor of rank 4')
+        if not isinstance(gram_target, (tf.Tensor, tf.Variable)):
+            raise TypeError('input_layer must be a tensor of rank 4')
+        _, h, w, c = style_output.shape
+        if gram_target.shape.dims != [1, c, c]:
+            raise TypeError('input_layer must be a tensor of rank 4')
+
+        gram_style = self.gram_matrix(style_output)
+        E = tf.reduce_mean(tf.square(gram_style - gram_target))
+        return E
+
+    def style_cost(self, style_outputs):
+        """Calculates the style cost for generated image"""
+        len_st_layers = len(self.style_layers)
+        error = 'style_outputs must be a list with a length' \
+                ' of {}'.format(len(self.style_layers))
+        if type(style_outputs) is not list or \
+                len(style_outputs) != len_st_layers:
+            raise TypeError(error)
+
+        weight = 1 / len_st_layers
+        style_cost = 0
+
+        for st_output, target in zip(style_outputs, self.gram_style_features):
+            style_cost += self.layer_style_cost(st_output, target) * weight
+
+        return style_cost
