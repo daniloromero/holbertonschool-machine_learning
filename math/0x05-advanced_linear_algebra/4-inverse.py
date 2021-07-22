@@ -85,7 +85,10 @@ def inverse(matrix):
     if det == 0:
         return None
     if len(matrix) == 1:
-        return [[1]]
+        if len(matrix[0]) == 0:
+            return None
+        if len(matrix[0]) == 1:
+               return 1 / matrix[0][0]
 
     if len(matrix) == 2:
         return [[matrix[1][1], -matrix[0][1]], [-matrix[1][0], matrix[0][0]]]
