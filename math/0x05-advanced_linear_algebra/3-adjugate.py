@@ -84,7 +84,7 @@ def adjugate(matrix):
         return [[1]]
 
     if len(matrix) == 2:
-        return [[matrix[1][1], -matrix[1][0]], [-matrix[0][1], matrix[0][0]]]
+        return [[matrix[1][1], -matrix[0][1]], [-matrix[1][0], matrix[0][0]]]
 
     minor_mat = []
     for i in range(len(matrix)):
