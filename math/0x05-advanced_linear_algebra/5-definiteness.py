@@ -15,7 +15,7 @@ def definiteness(matrix):
 
     if len(matrix.shape) == 1:
         return None
-    if matrix.shape == matrix.T.shape:
+    if np.array_equal(matrix, matrix.T):
         w, v = np.linalg.eig(matrix)
 
         if np.all(w > 0):
