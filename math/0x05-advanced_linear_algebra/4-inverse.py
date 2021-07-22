@@ -91,7 +91,9 @@ def inverse(matrix):
             return 1 / matrix[0][0]
 
     if len(matrix) == 2:
-        return [[matrix[1][1], -matrix[0][1]], [-matrix[1][0], matrix[0][0]]]
+        adjugt = [[matrix[1][1], -matrix[0][1]], [-matrix[1][0], matrix[0][0]]]
+        return [[adjugt[j][i] / det for j in range(len(adjugt))]
+                for i in range(len(adjugt[0]))]
 
     minor_mat = []
     for i in range(len(matrix)):
