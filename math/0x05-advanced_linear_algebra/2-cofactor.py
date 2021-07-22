@@ -32,18 +32,20 @@ def determinant(matrix):
         matrix: is a list of lists
     Returns: the determinant of matrix
     """
+    if matrix == [[]]:
+        return 1
+
     if type(matrix) is not list:
         raise TypeError('matrix must be a list of lists')
-    if len(matrix) < 1 or type(matrix[0]) is not list:
-        raise TypeError('matrix must be a list of lists')
-    if len(matrix[0]) >= 1 and len(matrix) != len(matrix[0]):
+    else:
+        if not all(isinstance(row, list) for row in matrix):
+            raise TypeError('matrix must be a list of lists')
+    row_size = [len(row) for row in matrix]
+    if not all(len(matrix) == col for col in row_size):
         raise ValueError('matrix must be a square matrix')
 
-    if len(matrix) == 1:
-        if len(matrix[0]) == 0:
-            return 1
-        if len(matrix[0]) == 1:
-            return matrix[0][0]
+    if len(matrix[0]) == 1 and len(matrix[0]) == 1:
+        return matrix[0][0]
     return determinant_recur(matrix)
 
 
@@ -69,10 +71,14 @@ def cofactor(matrix):
     """
     if type(matrix) is not list:
         raise TypeError('matrix must be a list of lists')
-    if len(matrix) < 1 or type(matrix[0]) is not list:
-        raise TypeError('matrix must be a list of lists')
-    if len(matrix[0]) >= 1 and len(matrix) != len(matrix[0]):
-        raise ValueError('matrix must be a square matrix')
+    else:
+        if not all(isinstance(row, list) for row in matrix):
+            raise TypeError('matrix must be a list of lists')
+    row_size = [len(row) for row in matrix]
+    if matrix == [[]]:
+        raise ValueError("matrix must be a non-empty square matrix")
+    if not all(len(matrix) == col for col in row_size):
+        raise ValueError('matrix must be a non-empty square matrix')
 
     if len(matrix) == 1:
         return [[1]]
