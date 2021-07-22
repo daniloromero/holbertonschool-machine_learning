@@ -78,7 +78,7 @@ def minor(matrix):
     if matrix == [[]]:
         raise ValueError("matrix must be a non-empty square matrix")
     if not all(len(matrix) == col for col in row_size):
-        raise ValueError('matrix must be a square matrix')
+        raise ValueError('matrix must be a non-empty square matrix')
 
     if len(matrix) == 1:
         return [[1]]
