@@ -76,7 +76,7 @@ def minor(matrix):
             raise TypeError('matrix must be a list of lists')
     row_size = [len(row) for row in matrix]
     if matrix == [[]]:
-    	raise ValueError("matrix must be a non-empty square matrix")
+        raise ValueError("matrix must be a non-empty square matrix")
     if not all(len(matrix) == col for col in row_size):
         raise ValueError('matrix must be a square matrix')
 
