@@ -13,7 +13,7 @@ def mean_cov(X):
         mean is a numpy.ndarray of shape(1, d) containing the mean
         cov is a numpy.ndarray of shape(d, d) containing covariance matrix
     """
-    if len(X.shape) != 2:
+    if type(X) is not np.ndarray and len(X.shape) != 2:
         raise TypeError('X must be a 2D numpy.ndarray')
     if X.shape[0] < 2:
         raise ValueError('X must contain multiple data points')
