@@ -15,10 +15,11 @@ def mean_cov(X):
     """
     if type(X) is not np.ndarray and len(X.shape) != 2:
         raise TypeError('X must be a 2D numpy.ndarray')
-    if X.shape[0] < 2:
+    n, d = np.shape(X)
+    if n < 2:
         raise ValueError('X must contain multiple data points')
-    mean = np.sum(X, axis=0) / X.shape[0]
+    mean = np.mean(X, axis=0).reshape(1, d)
     X = X - mean
-    conv = np.matmul(X.T, X) / (X.shape[0] - 1)
+    cov = np.matmul(X.T, X) / (n - 1)
 
-    return mean, conv
+    return mean, cov
