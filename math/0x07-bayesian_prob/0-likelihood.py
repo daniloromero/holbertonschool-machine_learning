@@ -1,4 +1,4 @@
-#!/usr/bin/enve python3
+#!/usr/bin/env python3
 """MOdule that calculates likelihood given vaious probabilities"""
 import numpy as np
 
