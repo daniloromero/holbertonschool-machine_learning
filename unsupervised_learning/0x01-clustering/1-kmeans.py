@@ -34,7 +34,6 @@ def kmeans(X, k, iterations=1000):
         dist = np.linalg.norm(X - C[:, np.newaxis], axis=2)
         # one hot encoding matrix: datapoint to closest centroid
         clss = np.argmin(dist, axis=0)
-        print(X[clss == k])
         # Update centroids
         for k in range(C.shape[0]):
             # reinitialize centroid If cluster contains no data points
@@ -44,7 +43,6 @@ def kmeans(X, k, iterations=1000):
                 C[k, :] = np.mean(X[clss == k], axis=0)
         # If no change in the cluster centroids the return
         if (C_clone == C).all():
-            print(i)
             return (C, clss)
 
     return (C, clss)
