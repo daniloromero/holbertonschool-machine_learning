@@ -30,7 +30,7 @@ def kmeans(X, k, iterations=1000):
 
     for i in range(iterations):
         C_clone = np.copy(C)
-        # Calculate distance betwen points X and centroids C
+        # Calculate distance between points X and centroids C
         dist = np.linalg.norm(X - C[:, np.newaxis], axis=2)
         # one hot encoding matrix: datapoint to closest centroid
         clss = np.argmin(dist, axis=0)
