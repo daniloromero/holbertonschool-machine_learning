@@ -14,4 +14,3 @@ def initialize(X, k):
     """
     n, d = X.shape
     return np.random.uniform(np.min(X, axis=0), np.max(X, axis=0), (k, d))
-:s
