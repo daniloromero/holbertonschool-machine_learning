@@ -27,8 +27,7 @@ def kmeans(X, k, iterations=1000):
     X_min = np.min(X, axis=0)
     X_max = np.max(X, axis=0)
     C = np.random.uniform(X_min, X_max, (k, d))
-    print(X.shape)
-    print(C[np.newaxis,:].shape)
+
     for i in range(iterations + 1):
         C_clone = np.copy(C)
         # Calculate distance between points X and centroids C
