@@ -27,20 +27,22 @@ def kmeans(X, k, iterations=1000):
     X_min = np.min(X, axis=0)
     X_max = np.max(X, axis=0)
     C = np.random.uniform(X_min, X_max, (k, d))
-
-    for i in range(iterations):
+    print(X.shape)
+    print(C[np.newaxis,:].shape)
+    for i in range(iterations + 1):
         C_clone = np.copy(C)
         # Calculate distance between points X and centroids C
         dist = np.linalg.norm(X - C[:, np.newaxis], axis=2)
         # one hot encoding matrix: datapoint to closest centroid
         clss = np.argmin(dist, axis=0)
         # Update centroids
-        for j in range(C.shape[0]):
-            # reinitialize centroid If cluster contains no data points
-            if X[clss == j].size == 0:
-                C[j, :] = np.random.uniform(X_min, X_max, (1, d))
-            else:
-                C[j, :] = np.mean(X[clss == j], axis=0)
+        if (i < interations):
+            for j in range(C.shape[0]):
+                # reinitialize centroid If cluster contains no data points
+                if X[clss == j].size == 0:
+                    C[j, :] = np.random.uniform(X_min, X_max, (1, d))
+                else:
+                    C[j, :] = np.mean(X[clss == j], axis=0)
         # If no change in the cluster centroids the return
         if (C_clone == C).all():
             return (C, clss)
