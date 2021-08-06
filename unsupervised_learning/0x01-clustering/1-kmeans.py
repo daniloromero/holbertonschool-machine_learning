@@ -18,7 +18,7 @@ def kmeans(X, k, iterations=1000):
     """
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None
-    if type(k) != int or k < 0 or k > X.shape[0]:
+    if type(k) != int or k <= 0 or k > X.shape[0]:
         return None, None
     if type(iterations) != int or iterations <= 0:
         return None, None
@@ -35,12 +35,12 @@ def kmeans(X, k, iterations=1000):
         # one hot encoding matrix: datapoint to closest centroid
         clss = np.argmin(dist, axis=0)
         # Update centroids
-        for k in range(C.shape[0]):
+        for j in range(C.shape[0]):
             # reinitialize centroid If cluster contains no data points
-            if (X[clss == k].size == 0):
-                C[k, :] = np.random.uniform(X_min, X_max, (1, d))
+            if X[clss == j].size == 0:
+                C[j, :] = np.random.uniform(X_min, X_max, (1, d))
             else:
-                C[k, :] = np.mean(X[clss == k], axis=0)
+                C[j, :] = np.mean(X[clss == j], axis=0)
         # If no change in the cluster centroids the return
         if (C_clone == C).all():
             return (C, clss)
