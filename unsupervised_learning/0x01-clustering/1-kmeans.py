@@ -35,7 +35,7 @@ def kmeans(X, k, iterations=1000):
         # one hot encoding matrix: datapoint to closest centroid
         clss = np.argmin(dist, axis=0)
         # Update centroids
-        if (i < interations):
+        if (i < iterations):
             for j in range(C.shape[0]):
                 # reinitialize centroid If cluster contains no data points
                 if X[clss == j].size == 0:
