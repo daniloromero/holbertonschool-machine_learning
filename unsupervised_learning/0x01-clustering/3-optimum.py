@@ -38,8 +38,8 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         for k in range(kmin, kmax + 1):
             C_k, clss = kmeans(X, k)
             results.append((C_k, clss))
-            k_var = variance(X, C_k)
-            d_vars.append(kmin_var - k_var)
+            d_vars.append(kmin_var - variance(X, C_k))
         return results, d_vars
+
     except Exception:
         return None, None
