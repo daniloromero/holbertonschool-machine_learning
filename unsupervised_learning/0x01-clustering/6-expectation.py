@@ -38,8 +38,8 @@ def expectation(X, pi, m, S):
 
     k = len(pi)
     n, d = X.shape
-    post = np.zeros((k,n))
-    for i in range (k):
+    post = np.zeros((k, n))
+    for i in range(k):
         post[i] = pi[i] * pdf(X, m[i], S[i])
     den = np.sum(post, axis=0)
     post /= den
