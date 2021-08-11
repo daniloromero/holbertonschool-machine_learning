@@ -37,4 +37,4 @@ def regular(P):
     q = np.c_[q, ones]
     QTQ = np.dot(q, q.T)
     bQT = np.ones(dim)
-    return np.linalg.solve(QTQ, bQT)
+    return np.expand_dims(np.linalg.solve(QTQ, bQT), axis=0)
