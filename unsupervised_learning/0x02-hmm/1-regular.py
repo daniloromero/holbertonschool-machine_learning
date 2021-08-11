@@ -3,13 +3,6 @@
 import numpy as np
 
 
-def augment_P(P):
-    dimension = P.shape[0]
-    M = np.vstack((P.transpose()[:-1], np.ones(dimension)))
-    b = np.vstack((np.zeros((dimension - 1, 1)), [1]))
-    return M, b
-
-
 def regular(P):
     """determines the steady state probabilities of a regular markov chain
     Args:
