@@ -18,5 +18,4 @@ def absorbing(P):
         return None
     if not np.any(np.diag(P) == 1):
         return False
-    return True
-
+    return True         
