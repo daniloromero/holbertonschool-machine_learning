@@ -45,7 +45,3 @@ def expectation(X, pi, m, S):
     post /= den
     likelihood = np.sum(np.log(den))
     return post, likelihood
-
-    prob = num / den
-
-    return np.maximum(prob, 1e-300)

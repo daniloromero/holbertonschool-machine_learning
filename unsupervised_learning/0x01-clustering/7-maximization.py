@@ -47,4 +47,4 @@ def maximization(X, g):
         # maximization updates to prior to each cluster
         pi[i] = np.sum(g[i]) / n
 
-    return (pi, m, S)
+    return pi, m, S

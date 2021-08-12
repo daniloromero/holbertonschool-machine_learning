@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
+import matplotlib.pyplot as plt
 import numpy as np
-initialize = __import__('4-initialize').initialize
-expectation = __import__('6-expectation').expectation
-maximization = __import__('7-maximization').maximization
+BIC = __import__('9-BIC').BIC
 
 if __name__ == '__main__':
     np.random.seed(11)
@@ -13,9 +12,19 @@ if __name__ == '__main__':
     d = np.random.multivariate_normal([20, 70], [[35, 10], [10, 35]], size=1000)
     X = np.concatenate((a, b, c, d), axis=0)
     np.random.shuffle(X)
-    pi, m, S = initialize(X, 4)
-    g, _ = expectation(X, pi, m, S)
-    pi, m, S = maximization(X, g)
-    print(pi)
-    print(m)
-    print(S)
+    best_k, best_result, l, b = BIC(X, kmin=1, kmax=10)
+    print(best_k)
+    print(best_result)
+    print(l)
+    print(b)
+    x = np.arange(1, 11)
+    plt.plot(x, l, 'r')
+    plt.xlabel('Clusters')
+    plt.ylabel('Log Likelihood')
+    plt.tight_layout()
+    plt.show()
+    plt.plot(x, b, 'b')
+    plt.xlabel('Clusters')
+    plt.ylabel('BIC')
+    plt.tight_layout()
+    plt.show()
