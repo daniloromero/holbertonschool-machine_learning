@@ -16,6 +16,9 @@ def absorbing(P):
         return False
     if len(P.shape) != 2:
         return None
+    total_prob = np.ones((1, p1))
+    if not np.isclose(total_prob, np.sum(P, axis=1)).all():
+        return None
     if not np.any(np.diag(P) == 1):
         return False
-    return True         
+    return True
