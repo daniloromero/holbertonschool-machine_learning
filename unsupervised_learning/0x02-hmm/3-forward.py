@@ -23,12 +23,11 @@ def forward(Observation, Emission, Transition, Initial):
             F[i, j] probability of being in hidden state i at time j given
                 previous observation
     """
-    T = Observation.shape
+    T = Observation.shape[0]
     N, M = Emission.shape
     Nt1, Nt2 = Transition.shape
     Ni1, i2 = Initial.shape
-
-    if type(Observation) != np.ndarray or len(T) > 1:
+    if type(Observation) != np.ndarray or len(Observation.shape) > 1:
         return None, None
     if type(Emission) != np.ndarray:
         return None, None
@@ -38,3 +37,12 @@ def forward(Observation, Emission, Transition, Initial):
         return None, None
     if N != Nt1 or Nt1 != Nt2 or Ni1 != N:
         return None, None
+
+    F = np.zeros((N, T))
+    F[:, 0] = Initial.T * Emission[:, Observation[0]]
+
+    for t in range(1, T):
+        F[:, t] = (F[:, t - 1] @ Transition[:, :]) *\
+                  Emission[:, Observation[t]]
+    P = np.sum(F[:, -1])
+    return (P, F)

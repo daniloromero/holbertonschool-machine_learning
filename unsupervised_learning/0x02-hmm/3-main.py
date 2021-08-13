@@ -26,4 +26,4 @@ if __name__ == '__main__':
     Observations = np.array(Observations)
     P, F = forward(Observations, Emission, Transition, Initial.reshape((-1, 1)))
     print(P)
-    print
+    print(F)
