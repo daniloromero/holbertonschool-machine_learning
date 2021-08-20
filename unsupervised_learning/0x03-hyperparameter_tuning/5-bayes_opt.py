@@ -70,7 +70,7 @@ class BayesianOptimization():
         X_next = self.X_s[np.argmax(ei)]
         return X_next, ei
 
-    def ooptimize(self, iterations100):
+    def optimize(self, iterations=100):
         """optimizes the black box function
         Args:
             iterations is the maximum number of iterations to perform
@@ -79,3 +79,4 @@ class BayesianOptimization():
                 Y_opt: numpy.ndarray shape (1,) representing
                     the optimal function value
         """
+        
