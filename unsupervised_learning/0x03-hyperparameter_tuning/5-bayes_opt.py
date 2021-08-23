@@ -99,3 +99,4 @@ class BayesianOptimization():
             idx = np.argmax(self.gp.Y)
 
         return self.gp.X[idx], self.gp.Y[idx]
+    
