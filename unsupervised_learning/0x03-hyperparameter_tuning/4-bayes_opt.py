@@ -60,10 +60,15 @@ class BayesianOptimization():
         # Needed for noise-based model,
         # otherwise use np.max(Y_sample).
         # See also section 2.4 in [1]
-        mu_sample_opt = np.max(mu)
+        if self.minimize is True:
+            Y_sample_opt = np.min(self.gp.Y)
+            imp = Y_sample_opt - mu - self.xsi
+        else:
+            Y_sample_opt = np.max(self.gp.Y)
+            imp = mu - Y_sample_opt - self.xsi
 
         with np.errstate(divide='warn'):
-            imp = mu - mu_sample_opt - self.xsi
+
             Z = imp / sigma
             ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
             ei[sigma == 0.0] = 0.0

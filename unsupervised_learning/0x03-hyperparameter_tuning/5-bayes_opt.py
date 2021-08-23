@@ -60,10 +60,15 @@ class BayesianOptimization():
         # Needed for noise-based model,
         # otherwise use np.max(Y_sample).
         # See also section 2.4 in [1]
-        mu_sample_opt = np.max(mu)
+        if self.minimize is True:
+            Y_sample_opt = np.min(self.gp.Y)
+            imp = Y_sample_opt - mu - self.xsi
+        else:
+            Y_sample_opt = np.max(self.gp.Y)
+            imp = mu - Y_sample_opt - self.xsi
 
         with np.errstate(divide='warn'):
-            imp = mu - mu_sample_opt - self.xsi
+
             Z = imp / sigma
             ei = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
             ei[sigma == 0.0] = 0.0
@@ -79,4 +84,18 @@ class BayesianOptimization():
                 Y_opt: numpy.ndarray shape (1,) representing
                     the optimal function value
         """
-        
+        X_sample = []
+        for i in range(iterations):
+            X_opt, _ = self.acquisition()
+            if X_opt in X_sample:
+                break
+            Y_opt = self.f(X_opt)
+            self.gp.update(X_opt, Y_opt)
+            X_sample.append(X_opt)
+
+        if self.minimize is True:
+            idx = np.argmin(self.gp.Y)
+        else:
+            idx = np.argmax(self.gp.Y)
+
+        return self.gp.X[idx], self.gp.Y[idx]
