@@ -90,9 +90,9 @@ class BayesianOptimization():
             if X_opt in X_sample:
                 break
             Y_opt = self.f(X_opt)
-            self.gp.update(X_opt, Y_opt)
             X_sample.append(X_opt)
-
+            self.gp.update(X_opt, Y_opt)
+        self.gp.X = self.gp.X[:-1]
         if self.minimize is True:
             idx = np.argmin(self.gp.Y)
         else:
