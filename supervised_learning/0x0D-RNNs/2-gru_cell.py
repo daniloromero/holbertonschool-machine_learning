@@ -43,7 +43,7 @@ class GRUCell:
     def forward(self, h_prev, x_t):
         """peforms forward propagation for one time step
         Args:
-            x_t: numpy.ndarray shape(m, i) that contains the input data for cell
+            x_t: numpy.ndarray shape(m, i) that contains input data for cell
                 m is the batch size
             h_prev: numpy.ndarray shape(m, h) containing previous hidden state
         Returns: h_next, y
