@@ -19,9 +19,9 @@ class GRUCell:
             Wh and bh are for the intermediate hidden state
             Wy and by are for the output
         """
-        self.Wz = np.random.rand(i + h, h)
-        self.Wr = np.random.rand(i + h, h)
-        self.Wh = np.random.rand(i + h, h)
+        self.Wz = np.random.randn(i + h, h)
+        self.Wr = np.random.randn(i + h, h)
+        self.Wh = np.random.randn(i + h, h)
         self.Wy = np.random.rand(h, o)
         self.bz = np.zeros((1, h))
         self.br = np.zeros((1, h))
@@ -60,4 +60,3 @@ class GRUCell:
         h_next = (np.ones_like(z) - z) * h_prev + z * h
         y = self.softmax(h_next @ self.Wy + self.by)
         return h_next, y
-    
