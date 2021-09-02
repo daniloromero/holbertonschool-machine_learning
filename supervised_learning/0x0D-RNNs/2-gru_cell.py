@@ -22,7 +22,7 @@ class GRUCell:
         self.Wz = np.random.randn(i + h, h)
         self.Wr = np.random.randn(i + h, h)
         self.Wh = np.random.randn(i + h, h)
-        self.Wy = np.random.rand(h, o)
+        self.Wy = np.random.randn(h, o)
         self.bz = np.zeros((1, h))
         self.br = np.zeros((1, h))
         self.bh = np.zeros((1, h))
