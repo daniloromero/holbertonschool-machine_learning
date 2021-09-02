@@ -32,5 +32,3 @@ def rnn(rnn_cell, x, h_0):
         print(y.shape)
     print(len(y_pred[0][0]))
     return h_n, np.array(y_pred)
-
-
