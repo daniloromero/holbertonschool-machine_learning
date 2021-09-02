@@ -29,6 +29,4 @@ def rnn(rnn_cell, x, h_0):
         h_n[t_s + 1], y = rnn_cell.forward(h_next, x[t_s])
         h_next = h_n[t_s + 1]
         y_pred.append(y)
-        print(y.shape)
-    print(len(y_pred[0][0]))
     return h_n, np.array(y_pred)
