@@ -24,10 +24,10 @@ class LSTMCell:
         self.Wc = np.random.randn(i + h, h)
         self.Wo = np.random.randn(i + h, h)
         self.Wy = np.random.randn(h, o)
-        self.bf = np.zeros((1, o))
-        self.bu = np.zeros((1, o))
-        self.bc = np.zeros((1, o))
-        self.bo = np.zeros((1, o))
+        self.bf = np.zeros((1, h))
+        self.bu = np.zeros((1, h))
+        self.bc = np.zeros((1, h))
+        self.bo = np.zeros((1, h))
         self.by = np.zeros((1, o))
 
     @staticmethod
@@ -66,10 +66,10 @@ class LSTMCell:
         # cell input activation vector
         c = np.tanh(cat @ self.Wc + self.bc)
         # cell state vector
-        ct = ft * c_prev + ut * c
+        c_next = ft * c_prev + ut * c
         ot = self.sigmoid(cat @ self.Wo + self.bo)
         # next hidden state
-        h_next = ot * np.tanh(ct)
+        h_next = ot * np.tanh(c_next)
         # cell activate output
         y = self.softmax(h_next @ self.Wy + self.by)
-        return h_next, ct, y
+        return h_next, c_next, y
