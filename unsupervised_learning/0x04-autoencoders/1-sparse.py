@@ -19,33 +19,32 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
             auto is the full autoencoder model
     """
     input_img = keras.Input(shape=(input_dims,))
-    layer_enc = keras.layers.Dense(hidden_layers[0], activation='relu',
+    layer_enc = keras.layers.Dense(units=hidden_layers[0], activation='relu',
                                    )(input_img)
     for hl in range(1, len(hidden_layers)):
-        layer_enc = keras.layers.Dense(hidden_layers[hl],
+        layer_enc = keras.layers.Dense(units=hidden_layers[hl],
                                        activation='relu',
                                        )(layer_enc)
     reg = keras.regularizers.l1(lambtha)
-    latent_enc = keras.layers.Dense(latent_dims, activation='relu',
+    latent_enc = keras.layers.Dense(units=latent_dims, activation='relu',
                                     activity_regularizer=reg)(layer_enc)
 
     encoded = keras.Input(shape=(latent_dims,))
-    latent = keras.layers.Dense(hidden_layers[hl],
+    latent = keras.layers.Dense(units=hidden_layers[hl],
                                 activation='relu',
                                 )(encoded)
     c = 1
     for hl in range(len(hidden_layers) - 2, -1, -1):
-        reg = keras.regularizers.l1(lambtha)
-        decod = keras.layers.Dense(hidden_layers[hl],
+        decod = keras.layers.Dense(units=hidden_layers[hl],
                                    activation='relu',
                                    )(latent if c else decod)
         c = 0
     decoded = keras.layers.Dense(input_dims, activation='sigmoid')(decod)
 
-    encoder = keras.Model(input_img, latent_enc)
-    decoder = keras.Model(encoded, decoded)
+    encoder = keras.Model(inputs=input_img, outputs=latent_enc)
+    decoder = keras.Model(inputs=encoded, outputs=decoded)
 
     outputs = decoder(encoder(input_img))
-    auto = keras.Model(input_img, outputs)
+    auto = keras.Model(inputs=input_img, outputs=outputs)
     auto.compile(optimizer='adam', loss='binary_crossentropy')
     return encoder, decoder, auto
