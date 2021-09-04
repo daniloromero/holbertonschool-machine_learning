@@ -21,22 +21,22 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     input_img = keras.Input(shape=(input_dims,))
     x = input_img
     for hl in hidden_layers:
-        x = keras.layers.Dense(hl, activation='relu')(x)
-    latent_enc = keras.layers.Dense(latent_dims, activation='relu')(x)
-    encoder = keras.Model(input_img, latent_enc)
+        x = keras.layers.Dense(units=hl, activation='relu')(x)
+    latent_enc = keras.layers.Dense(units=latent_dims, activation='relu')(x)
+    encoder = keras.Model(inputs=input_img, outputs=latent_enc)
 
     # "decoder_input" is the encoded representation of img as input for decoder
     decoder_input = keras.layers.Input(shape=(latent_dims,))
 
     x = decoder_input
     for hl in reversed(hidden_layers):
-        x = keras.layers.Dense(hl, activation='relu')(x)
+        x = keras.layers.Dense(units=hl, activation='relu')(x)
     # "decoded" is the lossy reconstruction of the input
-    decoded = keras.layers.Dense(input_dims,
+    decoded = keras.layers.Dense(units=input_dims,
                                  activation='sigmoid')(decoder_input)
 
     # Create the decoder model
-    decoder = keras.Model(decoder_input, decoded)
+    decoder = keras.Model(inputs=decoder_input, outputs=decoded)
 
     outputs = decoder(encoder(input_img))
     auto = keras.Model(input_img, outputs)
