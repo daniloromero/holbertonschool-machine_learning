@@ -33,7 +33,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         x = keras.layers.Dense(units=hl, activation='relu')(x)
     # "decoded" is the lossy reconstruction of the input
     decoded = keras.layers.Dense(units=input_dims,
-                                 activation='sigmoid')(decoder_input)
+                                 activation='sigmoid')(x)
 
     # Create the decoder model
     decoder = keras.Model(inputs=decoder_input, outputs=decoded)
