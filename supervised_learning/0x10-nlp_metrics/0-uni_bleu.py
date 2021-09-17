@@ -23,8 +23,9 @@ def uni_bleu(references, sentence):
                 count += 1
         if count > max_count:
             max_count = count
+        print(max_count)
     P = max_count / sentence_l
-
+    print(P)
     if sentence_l > r:
         BP = 1
     else:
