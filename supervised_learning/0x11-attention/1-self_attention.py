@@ -37,9 +37,6 @@ class SelfAttention(tf.keras.layers.Layer):
         prev_hs = self.W(tf.expand_dims(s_prev, 1))
         key = self.U(hidden_states)
         e = self.V(prev_hs + key)
-        print(hidden_states)
-        print(key)
-        print(e)
         weights = tf.nn.softmax(e, axis=1)
         context = weights * hidden_states
         return tf.keras.backend.sum(context, axis=1), weights
