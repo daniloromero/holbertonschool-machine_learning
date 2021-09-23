@@ -1,4 +1,4 @@
-#!/usr/bin/env pytho3
+#!/usr/bin/env python3
 """RNNEncoder to encode for machine translation"""
 import tensorflow as tf
 
