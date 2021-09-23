@@ -5,10 +5,12 @@ import tensorflow as tf
 
 class SelfAttention(tf.keras.layers.Layer):
     """Class SelfAttention"""
+
     def __init__(self, units):
         """SelfAttention class constructor
-        units is an integer representing the number of
-            hidden units in the alignment model
+        Args:
+            units is an integer representing the number of
+                hidden units in the alignment model
 
         W - a Dense layer with units units, to be applied to the
             previous decoder hidden state

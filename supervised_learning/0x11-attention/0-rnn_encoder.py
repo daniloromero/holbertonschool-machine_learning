@@ -35,6 +35,7 @@ class RNNEncoder(tf.keras.layers.Layer):
 
     def call(self, x, initial):
         """
+        Args:
             x is a tensor of shape (batch, input_seq_len) containing the input
                     to the encoder layer as word indices within the vocabulary
             initial is a tensor of shape (batch, units) containing the initial
