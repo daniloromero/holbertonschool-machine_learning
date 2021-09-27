@@ -5,7 +5,7 @@ Encoder = __import__('9-transformer_encoder').Encoder
 Decoder = __import__('10-transformer_decoder').Decoder
 
 
-class Transformer(tf.keras.Model):
+class Transformer(tf.keras.layers.Layer):
     """  Transformer class"""
 
     def __init__(self, N, dm, h, hidden, input_vocab, target_vocab,
