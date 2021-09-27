@@ -15,6 +15,15 @@ class RNNEncoder(tf.keras.layers.Layer):
             units is an integer representing the number of hidden units in
                     the RNN cell
             batch is an integer representing the batch size
+        Sets the following public instance attributes:
+            batch - the batch size
+            units - the number of hidden units in the RNN cell
+            embedding - a keras Embedding layer that converts words from
+                        the vocabulary into an embedding vector
+            gru - a keras GRU layer with units units
+                Should return both the full sequence of outputs
+                        as well as the last hidden state
+                Recurrent weights should be initialized with glorot_uniform
         """
         super(RNNEncoder, self).__init__()
         self.batch = batch
