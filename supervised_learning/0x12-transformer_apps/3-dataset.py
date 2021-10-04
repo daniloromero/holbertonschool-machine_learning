@@ -4,7 +4,7 @@ import tensorflow.compat.v2 as tf
 import tensorflow_datasets as tfds
 
 
-class Dataset():
+class Dataset:
     """ Dataset class"""
 
     def __init__(self, batch_size, max_len):
@@ -12,22 +12,29 @@ class Dataset():
         self.batch_size = batch_size
         self.max_len = max_len
 
-        def make_batches(ds):
-            return (
-                ds
-                .cache()
-                .shuffle(ds)
-                .padded_batch(self.batch_size)
-                .map(self.tf_encode)
-                .prefetch(tf.data.experimental.AUTOTUNE))
+        def filter_fn(pt, en, max_len=max_len):
+            """ Filter Examples with size less than max_len """
+            return tf.logical_and(tf.size(pt) <= max_len,
+                                  tf.size(en) <= max_len)
         data_set, ds_info = tfds.load('ted_hrlr_translate/pt_to_en',
                                       split=['train', 'validation'],
                                       as_supervised=True,
                                       with_info=True)
+        # print(ds_info)
+        # print(type(ds_info))
         tokens = self.tokenize_dataset(data_set[0])
         self.tokenizer_pt, self.tokenizer_en = tokens
-        self.data_train = make_batches(data_set[0])
-        self.data_valid = data_set[1].map(self.tf_encode)
+        data_train = data_set[0].map(self.tf_encode)
+        data_train = data_train.filter(filter_fn)
+        # print(data_set[0].element_spec)
+        # print(data_train.take(1))
+        data_train = data_train.cache()
+        data_train = data_train.shuffle(ds_info.splits['train'].num_examples)
+        data_train = data_train.padded_batch(self.batch_size)
+        self.data_train = data_train.prefetch(tf.data.experimental.AUTOTUNE)
+        data_valid = data_set[1].map(self.tf_encode)
+        data_valid = data_valid.filter(filter_fn)
+        self.data_valid = data_valid.padded_batch(self.batch_size)
 
     def tokenize_dataset(self, data):
         """creates sub-word tokenizers for dataset
@@ -74,6 +81,6 @@ class Dataset():
         enc_pt, enc_en = tf.py_function(func=self.encode,
                                         inp=[pt, en],
                                         Tout=[tf.int64, tf.int64])
-        enc_pt = tf.ensure_shape(enc_pt, None)
-        enc_en = tf.ensure_shape(enc_en, None)
+        enc_pt = tf.ensure_shape(enc_pt, [None])
+        enc_en = tf.ensure_shape(enc_en, [None])
         return enc_pt, enc_en
