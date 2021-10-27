@@ -34,6 +34,8 @@ def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,
                 action = np.argmax(Q[state, :])  # Exploit learned values
 
             next_state, reward, done, info = env.step(action)
+            if done and reward == 0:
+                reward = -1
             old_value = Q[state, action]
             next_max = np.max(Q[next_state, :])
 
@@ -42,10 +44,10 @@ def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,
 
             Q[state, action] = new_value
             rewards += reward
-            state = next_state
 
             if done:
                 break
+            state = next_state
         epsilon = min_epsilon + (epsilon - min_epsilon) *\
             np.exp(-epsilon_decay * episode)
         total_rewards.append(rewards)
