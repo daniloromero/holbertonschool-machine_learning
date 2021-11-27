@@ -26,7 +26,6 @@ def sentientPlanets():
             planet_urls.append(sp['homeworld'])
     # request planets by id and get name into a list o planets
     for planet in planet_urls:
-        print(planet)
         r = requests.get(planet)
         answer = r.json()
         planets.append(answer.get('name'))
