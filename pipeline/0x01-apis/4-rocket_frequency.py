@@ -6,7 +6,7 @@ import requests
 
 if __name__ == '__main__':
     # request all past launches
-    url = 'https://api.spacexdata.com/v4/launches/past'
+    url = 'https://api.spacexdata.com/v4/launches/'
     r = requests.get(url)
     answer = r.json()
     # count lauches per rocket, store it into dictionary
