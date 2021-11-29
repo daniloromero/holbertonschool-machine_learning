@@ -16,7 +16,9 @@ if __name__ == '__main__':
     if r.status_code != 200:
         if r.status_code == 403:
             print('Reset in {} min '.format(minutes))
-
+        if r.status_code == 404:
+            print('Not Found')
+        exit()
     answer = r.json()
     location = answer['location']
     if location:
