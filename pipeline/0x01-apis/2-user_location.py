@@ -15,7 +15,7 @@ if __name__ == '__main__':
     # alternatives answer for different status codes returned by the request
     if r.status_code != 200:
         if r.status_code == 403:
-            print('Reset in {} min '.format(minutes))
+            print('Reset in {} min'.format(minutes))
         if r.status_code == 404:
             print('Not Found')
         exit()
