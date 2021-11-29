@@ -2,17 +2,16 @@
 """Script that print the location of a user requested to Github API"""
 import requests
 import sys
-import datetime as dt
+import time
 
 if __name__ == '__main__':
     # make request using user input
     url = sys.argv[1]
     r = requests.get(url)
-
-    # converts X-RateLimit-Reset time to minutes
-    miliseconds = r.headers['X-RateLimit-Reset']
-    minutes = dt.datetime.strptime(miliseconds[:-8], '%M')
-    minutes = minutes.strftime('%M')
+    # tracks X-RateLimit-Reset time with current time
+    reset = int(r.headers['X-RateLimit-Reset'])
+    now = time.time()
+    minutes = reset - now
     # alternatives answer for different status codes returned by the request
     if r.status_code == 404:
         print('Not Found')
