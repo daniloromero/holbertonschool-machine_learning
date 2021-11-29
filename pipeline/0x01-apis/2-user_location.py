@@ -17,11 +17,11 @@ if __name__ == '__main__':
         if r.status_code == 403:
             print('Reset in {} min'.format(minutes))
         if r.status_code == 404:
-            print('Not Found')
+            print('Not found')
         exit()
     answer = r.json()
     location = answer['location']
     if location:
         print(location)
     else:
-        print('Not Found')
+        print('Not found')
