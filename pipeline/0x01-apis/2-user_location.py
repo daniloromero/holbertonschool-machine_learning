@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # tracks X-RateLimit-Reset time with current time
     reset = int(r.headers['X-RateLimit-Reset'])
     now = time.time()
-    minutes = reset - now
+    minutes = round((reset - now) / 60)
     # alternatives answer for different status codes returned by the request
     if r.status_code == 404:
         print('Not Found')
