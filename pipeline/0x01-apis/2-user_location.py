@@ -13,11 +13,13 @@ if __name__ == '__main__':
     now = time.time()
     minutes = round((reset - now) / 60)
     # alternatives answer for different status codes returned by the request
-    if r.status_code == 404:
-        print('Not Found')
-    elif r.status_code == 403:
-        print('Reset in {} min '.format(minutes))
+    if r.status_code != 200:
+        if r.status_code == 403:
+            print('Reset in {} min '.format(minutes))
 
-    elif r.status_code == 200:
-        answer = r.json()
-        print(answer['location'])
+    answer = r.json()
+    location = answer['location']
+    if location:
+        print(location)
+    else:
+        print('Not Found')
