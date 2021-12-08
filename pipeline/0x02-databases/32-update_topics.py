@@ -3,7 +3,7 @@
 import pymongo
 
 
-def updae_topics(mongo_collection, name, topics):
+def update_topics(mongo_collection, name, topics):
     """Funtion  that changes all topics of a school document based on the name
     Args:
         mongo_collection will be the pymongo collection object
