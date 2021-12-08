@@ -13,7 +13,7 @@ if __name__ == '__main__':
     patch = nginx.count_documents({'method': 'PATCH'})
     delete = nginx.count_documents({'method': 'DELETE'})
     status = nginx.count_documents({'method': 'GET', 'path': '/status'})
-    print("{} logs".format(logs.count()))
+    print("{} logs".format(logs.count_documents()))
     print("Methods:\n" +
           "\tmethod GET: {}\n".format(get) +
           "\tmethod POST: {}\n".format(post) +
