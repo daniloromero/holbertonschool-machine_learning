@@ -10,7 +10,7 @@ if __name__ == '__main__':
     get_count = nginx_logs.find({'method': 'GET'}).count()
     post_count = nginx_logs.find({'method': 'POST'}).count()
     put_count = nginx_logs.find({'method': 'PUT'}).count()
-    patch_count = nginx_logs.find({'method': 'PATCH'}).count
+    patch_count = nginx_logs.find({'method': 'PATCH'}).count()
     delete_count = nginx_logs.find({'method': 'DELETE'}).count()
     statuscount = nginx_logs.find({'method': 'GET', 'path': '/status'}).count()
     print("{} logs".format(logs_count))
